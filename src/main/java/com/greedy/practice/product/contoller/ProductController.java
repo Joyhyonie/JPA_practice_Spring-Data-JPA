@@ -101,7 +101,7 @@ public class ProductController {
 		
 		productService.saveNewProduct(newProduct);
 		
-		rttr.addFlashAttribute("messeage", "상품 등록 성공! 등록된 상품을 확인해보세요 🤩");
+		rttr.addFlashAttribute("message", "상품 등록 성공! 등록된 상품을 확인해보세요 🤩");
 		
 		return "redirect:/product/list#success-regist";
 	}
