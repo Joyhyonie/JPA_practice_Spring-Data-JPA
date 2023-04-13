@@ -15,6 +15,9 @@ import com.greedy.practice.dto.ProductDTO;
 import com.greedy.practice.entity.Product;
 import com.greedy.practice.product.repository.ProductRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductService {
 
@@ -50,6 +53,17 @@ public class ProductService {
 	
 	
 	/* 상품 검색 */
+	public Page<ProductDTO> searchProductList(Pageable pageable, String keyword) {
+		
+		pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() -1, 
+				   pageable.getPageSize(),										
+				   Sort.by("productNo").descending());
+		
+		Page<Product> productList = productRepository.findProductByContaining(pageable, keyword);
+		log.info("productList : {}", productList);
+		
+		return productList.map(menu -> modelMapper.map(menu, ProductDTO.class));
+	}
 	
 	/* 상품 등록 */
 	@Transactional
@@ -97,27 +111,8 @@ public class ProductService {
 	}
 
 	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }

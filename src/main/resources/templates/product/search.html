@@ -7,5 +7,58 @@
 </head>
 <body>
 
+	<h1 align="center" th:text="'🐤 Products searched with ' + ${ keyword } + ' 🐤'"></h1>
+	
+	<div align="right" class="searchBox">
+	<form action="/product/search" method="get">
+	    <input type="text" placeholder="상품명 입력 :)" name="keyword">
+	    <input type="submit" value="검색">
+    </form>
+    </div>
+	
+	<table align="center" border="1">
+		<tr>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>상품가격</th>
+			<th>등록일</th>
+			<th>제조사</th>
+			<th>판매여부</th>
+		</tr>
+		<tr th:each="product : ${ productList }">
+			<td th:text="${ product.productNo }"></td>
+			<td th:text="${ product.productName }"></td>
+			<td th:text="${ #numbers.formatInteger(product.productPrice, 3, 'COMMA') } + 원"></td>
+			<td th:text="${ product.releaseDate }"></td>
+			<td th:text="${ product.supplierName }"></td>
+			<td th:text="${ product.orderableStatus }"></td>
+		</tr>
+	</table>
+	
+	<div align="center" id="paging" >
+		
+		<!-- 맨 앞으로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.startPage}} + '\''">◀◀</button>
+		
+		<!-- 이전 페이지로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.currentPage - 1}} + '\''"
+				th:disabled="${ productList.first }">◀</button>
+		
+		<!-- 숫자 버튼 -->
+		<th:block th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+			<button th:onclick="'location.href=\'/product/list?page=' + @{${page}} + '\''"
+					th:text="${ page }"
+					th:disabled="${ paging.currentPage eq page }">
+			</button>
+		</th:block>
+		
+		<!-- 다음 페이지로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.currentPage + 1}} + '\''"
+				th:disabled="${ productList.last }">▶</button>
+		
+		<!-- 맨 끝으로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.endPage}} + '\''">▶▶</button>
+	</div>
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.greedy.practice.product.contoller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -8,10 +9,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +21,9 @@ import com.greedy.practice.common.PagingButtonInfo;
 import com.greedy.practice.dto.ProductDTO;
 import com.greedy.practice.product.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -32,7 +36,15 @@ public class ProductController {
 	
 	/* 오늘의 상품 */
 	@GetMapping("/todays")
-	public String todaysPage() {
+	public String todaysPage(Model model) {
+		
+		List<ProductDTO> productList = productService.findProductList();
+		
+		Collections.shuffle(productList);
+		List<ProductDTO> todaysProductlist = productList.subList(0, 3);
+		log.info("todaysProductlist : {}", todaysProductlist);
+		
+		model.addAttribute("productList", todaysProductlist);
 		
 		return null;
 	}
@@ -53,7 +65,16 @@ public class ProductController {
 	
 	/* 상품 검색 */
 	@GetMapping("/search")
-	public String searchProduct() {
+	public String searchProduct(@PageableDefault Pageable pageable, @RequestParam(name="keyword") String keyword, Model model) {
+		
+		log.info(keyword);
+		
+		Page<ProductDTO> productList = productService.searchProductList(pageable, keyword);
+		PagingButtonInfo paging = Pagenation.getPagingButtonInfo(productList);
+		
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("paging", paging);
+		model.addAttribute("productList", productList);
 		
 		return "product/search";
 	}
