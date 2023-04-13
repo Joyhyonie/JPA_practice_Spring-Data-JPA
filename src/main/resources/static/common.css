@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+table {
+	padding: 20px;
+}
+
+th {
+	padding: 5px 20px;
+}
+
+td {
+	padding: 0px 20px;
+	text-align: center;
+}
+
+input[type=submit],
+button {
+	border:none; 
+	border-radius:20px; 
+	padding:10px 20px; 
+	font-size:20px; 
+	font-weight:bolder; 
+	color:white; 
+	background-color:#c9e698; 
+	cursor:pointer;
+	margin:10px;
+}
+
+input[type=submit]:hover,
+button:hover { 
+	background-color: #a8d854; 
+}
+
+h3 {
+	font-size: 30px;
+	font-weight: 900;
+}
+
+input,
+select {
+	margin-bottom: 10px;
+}
+
+#paging button {
+	padding: 5px 10px;
+	border-radius: 10px; 
+}
+
+.searchBox {
+	margin-right: 500px;
+}

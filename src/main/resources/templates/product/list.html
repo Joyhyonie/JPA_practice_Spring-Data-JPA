@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product List</title>
+<link rel="stylesheet" type="text/css" href="/common.css">
+</head>
+<body>
+
+	<h1 align="center">🐤 All Product 🐤</h1>
+
+	<div align="right" class="searchBox">
+	<form action="/project/search" method="get">
+	    <input type="text" placeholder="상품명 입력 :)" name="word" id="Search-bar">
+	    <input type="submit" value="검색">
+    </form>
+    </div>
+    
+    <table align="center" border="1">
+		<tr>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>상품가격</th>
+			<th>등록일</th>
+			<th>제조사</th>
+			<th>판매여부</th>
+		</tr>
+		<tr th:each="product : ${ productList }">
+			<td th:text="${ product.productNo }"></td>
+			<td th:text="${ product.productName }"></td>
+			<td th:text="${ product.productPrice }"></td>
+			<td th:text="${ product.releaseDate }"></td>
+			<td th:text="${ product.supplierName }"></td>
+			<td th:text="${ product.orderableStatus }"></td>
+		</tr>
+	</table>
+	
+	<div align="center" id="paging" >
+		
+		<!-- 맨 앞으로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.startPage}} + '\''">◀◀</button>
+		
+		<!-- 이전 페이지로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.currentPage - 1}} + '\''"
+				th:disabled="${ productList.first }">◀</button>
+		
+		<!-- 숫자 버튼 -->
+		<th:block th:each="page : ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+			<button th:onclick="'location.href=\'/product/list?page=' + @{${page}} + '\''"
+					th:text="${ page }"
+					th:disabled="${ paging.currentPage eq page }">
+			</button>
+		</th:block>
+		
+		<!-- 다음 페이지로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.currentPage + 1}} + '\''"
+				th:disabled="${ productList.last }">▶</button>
+		
+		<!-- 맨 끝으로 이동 -->
+		<button th:onclick="'location.href=\'/product/list?page=' + @{${paging.endPage}} + '\''">▶▶</button>
+	</div>
+	
+	
+	<script>
+	/* 신규 상품 등록 or 상품 삭제 후, 해당 페이지로 redirect 되기 전 alert 띄우기 */
+	if(window.location.hash === '#success-regist' || window.location.hash === '#sucess-remove'){
+	    alert('[[${message}]]'); // message 변수는 컨트롤러에서 전달한 Flash Attribute
+	}
+	</script>
+
+</body>
+</html>

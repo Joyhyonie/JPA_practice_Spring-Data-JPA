@@ -1,0 +1,20 @@
+# server port config
+server:
+  port: 8002
+  
+# DB config
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: C##GREEDY
+    password: GREEDY
+    
+# JPA config
+  jpa:
+    generate-ddl: false       # create table을 할 때만 true(기본값)
+    show-sql: true            # JPA가 수행하는 SQL구문을 콘솔에서 확인 가능
+    database: oracle
+    properties:
+      hibernate:
+        '[format_sql]': true  # SQL을 개행하여 보기좋게 출력
