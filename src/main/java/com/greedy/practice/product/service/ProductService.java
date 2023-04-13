@@ -1,5 +1,6 @@
 package com.greedy.practice.product.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,12 +66,22 @@ public class ProductService {
 		return productList.map(menu -> modelMapper.map(menu, ProductDTO.class));
 	}
 	
+	/* 등록일이 입력된 날짜 이후인 상품 조회 */
+	public List<ProductDTO> searchDateAfterProductList(Date dateAfter) {
+		
+		List<Product> productList = productRepository.findByDateAfter(dateAfter);
+		log.info("productList : {}", productList);
+		
+		return productList.stream().map(menu -> modelMapper.map(menu, ProductDTO.class)).collect(Collectors.toList());
+	}
+	
+	
 	/* 상품 등록 */
 	@Transactional
 	public void saveNewProduct(ProductDTO newProduct) {
 		
 		/* 등록일 가공 */
-		newProduct.setReleaseDate(new java.sql.Date(System.currentTimeMillis()));
+		newProduct.setDate(new java.sql.Date(System.currentTimeMillis()));
 		
 		/* 상품원가 가공 (상품 수수료 & 부가세) */
 		int charge = (int) (newProduct.getProductPrice() * 0.1);
@@ -87,8 +98,12 @@ public class ProductService {
 		
 		Product foundProduct = productRepository.findById(product.getProductNo()).orElseThrow(IllegalArgumentException::new);
 		
+		/* 상품원가 가공 (상품 수수료 & 부가세) */
+		int charge = (int) (product.getProductPrice() * 0.1);
+		int tax = (int) (product.getProductPrice() * 0.05);
+		
 		foundProduct.setProductName(product.getProductName());
-		foundProduct.setProductPrice(product.getProductPrice());
+		foundProduct.setProductPrice(product.getProductPrice() + charge + tax);
 		foundProduct.setSupplierName(product.getSupplierName());
 		foundProduct.setOrderableStatus(product.getOrderableStatus());
 		
@@ -109,6 +124,8 @@ public class ProductService {
 		productRepository.deleteById(product.getProductNo());
 		
 	}
+
+	
 
 	
 

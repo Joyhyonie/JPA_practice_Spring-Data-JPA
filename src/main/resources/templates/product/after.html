@@ -2,13 +2,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>todays Product</title>
+<title>after</title>
 <link rel="stylesheet" type="text/css" href="/common.css">
 </head>
 <body>
 
-	<h1 align="center">👏 오늘의 상품 👏</h1>
-
+	<h1 align="center">🐤 <span th:text="${ dateAfter }"></span> 이후 등록된 상품들 🐤</h1>
+	
+	<div class="flex">
+		<div align="left" class="searchBox">
+		<form action="/product/search" method="get">
+		    <input type="text" placeholder="상품명 입력 :)" name="keyword">
+		    <input type="submit" value="검색">
+	    </form>
+	    </div>
+	    
+	    <div align="right" class="dateBox">
+		<form action="/product/after" method="get">
+		    <input type="date" name="dateAfter">
+		    <input type="submit" value="이후 상품 조회">
+	    </form>
+		</div>
+    </div>
+    
     <table align="center" border="1">
 		<tr>
 			<th>상품번호</th>

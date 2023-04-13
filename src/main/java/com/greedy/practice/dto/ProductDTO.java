@@ -21,18 +21,18 @@ public class ProductDTO {
 	private int productNo;
 	private String productName;
 	private int productPrice;
-	private Date releaseDate;
+	private Date date;
 	private SupplierType supplierName;
 	private String orderableStatus;
 	
 	public ProductDTO() {}
 
-	public ProductDTO(int productNo, String productName, int productPrice, Date releaseDate, SupplierType supplierName, String orderableStatus) {
+	public ProductDTO(int productNo, String productName, int productPrice, Date date, SupplierType supplierName, String orderableStatus) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
 		this.productPrice = productPrice;
-		this.releaseDate = releaseDate;
+		this.date = date;
 		this.supplierName = supplierName;
 		this.orderableStatus = orderableStatus;
 	}
@@ -61,12 +61,12 @@ public class ProductDTO {
 		this.productPrice = productPrice;
 	}
 
-	public Date getReleaseDate() {
-		return releaseDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public SupplierType getSupplierName() {
@@ -88,7 +88,7 @@ public class ProductDTO {
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", releaseDate=" + releaseDate + ", supplierName=" + supplierName + ", orderableStatus=" + orderableStatus + "]";
+				+ ", date=" + date + ", supplierName=" + supplierName + ", orderableStatus=" + orderableStatus + "]";
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.greedy.practice.product.contoller;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -79,6 +80,18 @@ public class ProductController {
 		return "product/search";
 	}
 	
+	/* 등록일이 입력된 날짜 이후인 상품 조회 */
+	@GetMapping("/after")
+	public String searchDateAfterProduct(@RequestParam(name="dateAfter") Date dateAfter, Model model) {
+		
+		List<ProductDTO> productList = productService.searchDateAfterProductList(dateAfter);
+
+		model.addAttribute("dateAfter", dateAfter);
+		model.addAttribute("productList", productList);
+		
+		return "product/after";
+	}
+	
 	/* 상품 등록 */
 	@GetMapping("/regist")
 	public void registPage() {}
@@ -92,7 +105,6 @@ public class ProductController {
 		
 		return "redirect:/product/list#success-regist";
 	}
-	
 	
 	/* 상품 수정 */
 	@GetMapping("/modify")

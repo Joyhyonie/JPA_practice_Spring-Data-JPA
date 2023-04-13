@@ -29,7 +29,7 @@
 			<td th:text="${ product.productNo }"></td>
 			<td th:text="${ product.productName }"></td>
 			<td th:text="${ #numbers.formatInteger(product.productPrice, 3, 'COMMA') } + 원"></td>
-			<td th:text="${ product.releaseDate }"></td>
+			<td th:text="${ product.date }"></td>
 			<td th:text="${ product.supplierName }"></td>
 			<td th:text="${ product.orderableStatus }"></td>
 		</tr>

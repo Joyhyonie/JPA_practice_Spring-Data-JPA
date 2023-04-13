@@ -46,6 +46,14 @@ select {
 	border-radius: 10px; 
 }
 
-.searchBox {
-	margin-right: 500px;
+.searchBox{
+	margin-left: 500px;
+}
+
+.dateBox {
+	margin-left: 220px;
+}
+
+.flex {
+	display: flex;
 }

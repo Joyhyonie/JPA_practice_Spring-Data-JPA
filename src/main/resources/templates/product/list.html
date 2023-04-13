@@ -8,12 +8,21 @@
 <body>
 
 	<h1 align="center">🐤 All Product 🐤</h1>
-
-	<div align="right" class="searchBox">
-	<form action="/product/search" method="get">
-	    <input type="text" placeholder="상품명 입력 :)" name="keyword">
-	    <input type="submit" value="검색">
-    </form>
+	
+	<div class="flex">
+		<div align="left" class="searchBox">
+		<form action="/product/search" method="get">
+		    <input type="text" placeholder="상품명 입력 :)" name="keyword">
+		    <input type="submit" value="검색">
+	    </form>
+	    </div>
+	    
+	    <div align="right" class="dateBox">
+		<form action="/product/after" method="get">
+		    <input type="date" name="dateAfter">
+		    <input type="submit" value="이후 상품 조회">
+	    </form>
+		</div>
     </div>
     
     <table align="center" border="1">
@@ -29,7 +38,7 @@
 			<td th:text="${ product.productNo }"></td>
 			<td th:text="${ product.productName }"></td>
 			<td th:text="${ #numbers.formatInteger(product.productPrice, 3, 'COMMA') } + 원"></td>
-			<td th:text="${ product.releaseDate }"></td>
+			<td th:text="${ product.date }"></td>
 			<td th:text="${ product.supplierName }"></td>
 			<td th:text="${ product.orderableStatus }"></td>
 		</tr>
