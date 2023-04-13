@@ -4,8 +4,43 @@
 <meta charset="UTF-8">
 <title>remove Product</title>
 <link rel="stylesheet" type="text/css" href="/common.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
+
+	
+	<h3 align="center">상품 삭제</h3>
+	
+	<form align="center" action="/product/remove" method="post">
+		<label>삭제할 상품 선택 : </label>
+		<select name="productNo" id="productNo"></select><br>
+		<input type="submit" value="삭제">
+	</form>
+
+	<script>
+		/* 비동기 통신(ajax)을 통해 모든 메뉴 리스트 조회 */
+		$(function(){
+			$.ajax({
+				url : '/product/product',
+				success : function(data) {
+					console.log(data);
+					
+					let html = '';
+					/* data라는 조회된 배열을 반복하여 합산시키기 */
+					for(let index in data) {
+						html += `<option value='${data[index].productNo}'>${data[index].productName}</option>`;
+						// 조회된 메뉴의 이름을 화면에 노출시키고 그 메뉴가 선택(<option>)되면 value는 해당 메뉴의 코드
+					}
+					/* 그 값을 <select>에 insert하여 화면에 노출되도록 함 */
+					document.querySelector("#productNo").insertAdjacentHTML('beforeend', html);
+					
+				},
+				error : function(xhr) {
+					console.log(xhr);
+				}
+			});
+		})
+	</script>
 
 </body>
 </html>

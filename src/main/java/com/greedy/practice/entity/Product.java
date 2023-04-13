@@ -32,7 +32,6 @@ public class Product {
 	@Column(name="PRODUCT_NAME", nullable=false)
 	private String productName;
 	
-	/* property 접근을 통한 가공을 하는 필드 */
 	@Column(name="PRODUCT_PRICE", nullable=false)
 	private int productPrice;
 	
@@ -75,16 +74,8 @@ public class Product {
 		this.productName = productName;
 	}
 
-//	@Access(AccessType.PROPERTY)
 	public int getProductPrice() {
-		
-		System.out.println("getProductPrice()를 이용한 access 확인! 수수료 & 부가세 적용 성공");
-		
-		/* 상품 수수료 & 부가세 */
-		int charge = (int) (productPrice * 0.1);
-		int tax = (int) (productPrice * 0.05);
-		
-		return productPrice + charge + tax ;
+		return productPrice;
 	}
 
 	public void setProductPrice(int productPrice) {

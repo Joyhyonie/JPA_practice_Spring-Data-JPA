@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,13 +80,13 @@ public class ProductController {
 	/* 현재 상품 리스트 조회(ajax) */
 	@GetMapping(value="product", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public List<ProductDTO> findMenuList() {
+	public List<ProductDTO> findProductList() {
 		
 		return productService.findProductList();
 	}
 	
 	@PostMapping("/modify")
-	public String menuModify(ProductDTO product, RedirectAttributes rttr) {
+	public String modifyProduct(ProductDTO product, RedirectAttributes rttr) {
 		
 		productService.modifyProduct(product);
 		
@@ -104,11 +105,21 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
-		return "product/modified";
+		return "/product/modified";
 	}
 	
 	/* 상품 삭제 */
 	@GetMapping("/remove")
 	public void removePage() {}
+	
+	@PostMapping("/remove")
+	public String removeProduct(ProductDTO product, RedirectAttributes rttr) {
+		
+		productService.deleteProduct(product);
+		
+		rttr.addFlashAttribute("message", "메뉴 삭제 성공! 👀");
+		
+		return "redirect:/product/list#success-remove";
+	}
 	
 }

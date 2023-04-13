@@ -55,8 +55,13 @@ public class ProductService {
 	@Transactional
 	public void saveNewProduct(ProductDTO newProduct) {
 		
-		/* 등록일은 따로 가공 */
+		/* 등록일 가공 */
 		newProduct.setReleaseDate(new java.sql.Date(System.currentTimeMillis()));
+		
+		/* 상품원가 가공 (상품 수수료 & 부가세) */
+		int charge = (int) (newProduct.getProductPrice() * 0.1);
+		int tax = (int) (newProduct.getProductPrice() * 0.05);
+		newProduct.setProductPrice(newProduct.getProductPrice() + charge + tax);
 		
 		productRepository.save(modelMapper.map(newProduct, Product.class));
 		
@@ -81,6 +86,14 @@ public class ProductService {
 		Product product = productRepository.findById(productNo).orElseThrow(IllegalArgumentException::new);
 		
 		return modelMapper.map(product, ProductDTO.class);
+	}
+
+	/* 상품 삭제 */
+	@Transactional
+	public void deleteProduct(ProductDTO product) {
+		
+		productRepository.deleteById(product.getProductNo());
+		
 	}
 
 	
