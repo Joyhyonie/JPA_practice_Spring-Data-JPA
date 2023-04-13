@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,6 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     public Page<Product> findProductByContaining(Pageable pageable, String keyword);
 
 	/* 전달 받은 날짜 이후의 상품을 조회하는 메소드 */
-	List<Product> findByDateAfter(Date dateAfter);
+	List<Product> findByDateAfter(Date dateAfter, Sort sort);
 
 }
