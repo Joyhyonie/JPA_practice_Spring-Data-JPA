@@ -82,11 +82,13 @@ public class ProductController {
 	
 	/* 등록일이 입력된 날짜 이후인 상품 조회 */
 	@GetMapping("/after")
-	public String searchDateAfterProduct(@RequestParam(name="dateAfter") Date dateAfter, Model model) {
+	public String searchDateAfterProduct(@PageableDefault Pageable pageable, @RequestParam(name="dateAfter") Date dateAfter, Model model) {
 		
-		List<ProductDTO> productList = productService.searchDateAfterProductList(dateAfter);
+		Page<ProductDTO> productList = productService.searchDateAfterProductList(pageable, dateAfter);
+		PagingButtonInfo paging = Pagenation.getPagingButtonInfo(productList);
 
 		model.addAttribute("dateAfter", dateAfter);
+		model.addAttribute("paging", paging);
 		model.addAttribute("productList", productList);
 		
 		return "product/after";

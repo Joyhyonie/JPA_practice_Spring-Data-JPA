@@ -18,6 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     public Page<Product> findProductByContaining(Pageable pageable, String keyword);
 
 	/* 전달 받은 날짜 이후의 상품을 조회하는 메소드 */
-	List<Product> findByDateAfter(Date dateAfter, Sort sort);
+	Page<Product> findByDateAfter(Date dateAfter, Pageable pageable);
 
 }

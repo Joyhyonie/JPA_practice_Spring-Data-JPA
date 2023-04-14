@@ -65,12 +65,16 @@ public class ProductService {
 	}
 	
 	/* 등록일이 입력된 날짜 이후인 상품 조회 */
-	public List<ProductDTO> searchDateAfterProductList(Date dateAfter) {
+	public Page<ProductDTO> searchDateAfterProductList(Pageable pageable, Date dateAfter) {
 		
-		List<Product> productList = productRepository.findByDateAfter(dateAfter, Sort.by("date").descending());
+		pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() -1, 
+				   pageable.getPageSize(),										
+				   Sort.by("date").descending());
+		
+		Page<Product> productList = productRepository.findByDateAfter(dateAfter, pageable);
 		log.info("productList : {}", productList);
 		
-		return productList.stream().map(menu -> modelMapper.map(menu, ProductDTO.class)).collect(Collectors.toList());
+		return productList.map(menu -> modelMapper.map(menu, ProductDTO.class));
 	}
 	
 	
