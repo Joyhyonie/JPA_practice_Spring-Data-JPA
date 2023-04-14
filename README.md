@@ -1,1 +1,2 @@
-![JPA-practice-Spring-data-JPA](https://user-images.githubusercontent.com/109155268/231818278-04dea570-7247-4082-938e-e91586059887.gif)
+
+![JPA-practice-Spring-data-JPA](https://user-images.githubusercontent.com/109155268/231946004-21918863-ac9d-40d1-af65-0b8b6cc9b0ef.gif)
