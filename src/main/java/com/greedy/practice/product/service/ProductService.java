@@ -30,8 +30,6 @@ public class ProductService {
 		this.modelMapper = modelMapper;
 	}
 	
-	/* 오늘의 상품 */
-	
 	/* 전체 상품 */
 	public List<ProductDTO> findProductList() {
 		

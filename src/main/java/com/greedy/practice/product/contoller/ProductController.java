@@ -123,7 +123,7 @@ public class ProductController {
 		
 		productService.modifyProduct(product);
 		
-		rttr.addFlashAttribute("message", "메뉴 수정 성공! 수정된 메뉴를 확인하세요 😍");
+		rttr.addFlashAttribute("message", "상품 수정 성공! 수정된 상품을 확인하세요 😍");
 		
 		/* 수정된 하나의 상품 페이지로 이동 */
 		return "redirect:/product/" + product.getProductNo() + "#success-modify";
@@ -150,7 +150,7 @@ public class ProductController {
 		
 		productService.deleteProduct(product);
 		
-		rttr.addFlashAttribute("message", "메뉴 삭제 성공! 👀");
+		rttr.addFlashAttribute("message", "상품 삭제 성공! 👀");
 		
 		return "redirect:/product/list#success-remove";
 	}

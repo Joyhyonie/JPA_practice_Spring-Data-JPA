@@ -47,7 +47,7 @@
 				/* data라는 조회된 배열을 반복하여 합산시키기 */
 				for(let index in data) {
 					html += `<option value='${data[index].productNo}'>[${data[index].productNo}] ${data[index].productName}</option>`;
-					// 조회된 상품번호와 상품명을 화면에 노출시키고 그 메뉴가 선택(<option>)되면 value는 해당 메뉴의 코드
+					// 조회된 상품번호와 상품명을 화면에 노출시키고 그 상품이 선택(<option>)되면 value는 해당 상품의 코드
 				}
 				/* 그 값을 <select>에 insert하여 화면에 노출되도록 함 */
 				document.querySelector("#productNo").insertAdjacentHTML('beforeend', html);
